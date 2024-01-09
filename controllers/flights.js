@@ -16,6 +16,9 @@ function newFlight(req, res) {
 }
 
 async function create(req, res) {
+    for (let key in req.body) {
+        if (req.body[key] === '') delete req.body[key];
+    }
     try{
         await Flight.create(req.body);
         res.redirect('/flights/new');
@@ -24,4 +27,4 @@ async function create(req, res) {
         res.render('flights/new', { errorMsg: error.message });
     }
 }
-// does error.message need to be written out or can have err.message?
+
